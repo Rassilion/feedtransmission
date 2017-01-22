@@ -80,8 +80,7 @@ parser.add_argument('--download-dir',
 					metavar='<dir>',
 					help='The directory where the downloaded contents will be saved in. Optional.')
 parser.add_argument('--no-added-items',
-					default=None,
-					metavar='<logfile path>',
+					action='store_true',
 					help='Stops check for added items')
 
 # parse the arguments
