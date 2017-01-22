@@ -1,5 +1,6 @@
 #!/usr/bin/python
-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import sys, os
 import feedparser
 import transmissionrpc
@@ -35,8 +36,10 @@ def parseFeed(feed_url):
 	if feed.bozo and feed.bozo_exception:
 		logging.error("Error reading feed \'{0}\': ".format(feed_url) + str(feed.bozo_exception).strip())
 		return
-
-	addeditems = readAddedItems()
+        if args.no_added_items:
+                addeditems = {}
+        else:
+                addeditems = readAddedItems()
 
 	for item in feed.entries:
 		if item.link not in addeditems:
@@ -76,6 +79,10 @@ parser.add_argument('--download-dir',
 					default=None,
 					metavar='<dir>',
 					help='The directory where the downloaded contents will be saved in. Optional.')
+parser.add_argument('--no-added-items',
+					default=None,
+					metavar='<logfile path>',
+					help='Stops check for added items')
 
 # parse the arguments
 args = parser.parse_args()
