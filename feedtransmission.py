@@ -96,10 +96,10 @@ if __name__ == "__main__":
 		tc = transmissionrpc.Client(args.transmission_host, port=args.transmission_port, user=args.transmission_user, password=args.transmission_password)
 	except transmissionrpc.error.TransmissionError as te:
 		logging.error("Error connecting to Transmission: " + str(te).strip())
-		#exit(0)
+		exit(0)
 	except:
 		logging.error("Error connecting to Transmission: " + str(sys.exc_info()[0]).strip())
-		#exit(0)
+		exit(0)
 
 	# read the feed urls from config
 	for feed_url in args.feed_urls:
