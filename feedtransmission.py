@@ -21,8 +21,8 @@ def readAddedItems():
 # add the link to transmission and appends the link to the added items
 def addItem(item):
 	if args.download_dir:
-		logging.info("Adding Torrent: " + item.title + " (" + item.link + ") to " + args.download_dir)
-		tc.add_torrent(item.link, download_dir = args.download_dir)
+		logging.info("Adding Torrent: " + item.title + " (" + item.link + ") to " + os.path.join(args.download_dir,item.folder))
+		tc.add_torrent(item.link, download_dir = os.path.join(args.download_dir,item.folder))
 	else:
 		logging.info("Adding Torrent: " + item.title + " (" + item.link + ") to default directory")
 		tc.add_torrent(item.link)
@@ -96,10 +96,10 @@ if __name__ == "__main__":
 		tc = transmissionrpc.Client(args.transmission_host, port=args.transmission_port, user=args.transmission_user, password=args.transmission_password)
 	except transmissionrpc.error.TransmissionError as te:
 		logging.error("Error connecting to Transmission: " + str(te).strip())
-		exit(0)
+		#exit(0)
 	except:
 		logging.error("Error connecting to Transmission: " + str(sys.exc_info()[0]).strip())
-		exit(0)
+		#exit(0)
 
 	# read the feed urls from config
 	for feed_url in args.feed_urls:
